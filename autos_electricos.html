@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EV Future — Innovación Eléctrica & Vida Saludable</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black:   #0a0a0a;
+      --grey-d:  #1c1c1c;
+      --grey-m:  #3a3a3a;
+      --grey-l:  #6e6e6e;
+      --grey-xl: #b0b0b0;
+      --silver:  #d6d6d6;
+      --white:   #f5f5f5;
+      --pure:    #ffffff;
+      --accent:  #c8c8c8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5vw;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--grey-xl); }
+    nav ul { list-style: none; display: flex; gap: 2.5rem; }
+    nav ul a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--grey-xl);
+      text-decoration: none;
+      transition: color .25s;
+    }
+    nav ul a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(120,120,120,0.12) 0%, transparent 70%),
+        linear-gradient(160deg, #111 0%, #000 100%);
+    }
+
+    /* animated grid lines */
+    .grid-lines {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 20s linear infinite;
+    }
+    @keyframes gridShift {
+      from { background-position: 0 0; }
+      to   { background-position: 60px 60px; }
+    }
+
+    /* car silhouette SVG */
+    .car-silhouette {
+      position: absolute; bottom: 8%; left: 50%;
+      transform: translateX(-50%);
+      width: min(700px, 90vw);
+      opacity: 0.08;
+      animation: carFloat 6s ease-in-out infinite;
+    }
+    @keyframes carFloat {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(-12px); }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--grey-l);
+      margin-bottom: 1.5rem;
+      animation: fadeUp .8s .2s both;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 13rem);
+      line-height: 0.9;
+      letter-spacing: -2px;
+      animation: fadeUp .8s .4s both;
+    }
+    .hero-title em {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--grey-m);
+      font-style: normal;
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-style: italic;
+      color: var(--grey-xl);
+      max-width: 520px;
+      margin: 2rem auto 0;
+      line-height: 1.7;
+      animation: fadeUp .8s .6s both;
+    }
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      color: var(--grey-m);
+      animation: fadeUp .8s 1s both, blink 2s 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(30px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 8rem 5vw; }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--grey-l);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 2.5rem;
+    }
+    .divider {
+      width: 60px; height: 1px;
+      background: var(--grey-m);
+      margin: 2rem 0;
+    }
+
+    /* ── STATS BAND ── */
+    #stats {
+      background: var(--grey-d);
+      padding: 4rem 5vw;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-unit { color: var(--grey-l); font-size: 0.7em; }
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--grey-l);
+      margin-top: 0.5rem;
+    }
+
+    /* ── INNOVATION GRID ── */
+    #innovacion {
+      background: var(--black);
+    }
+    .inno-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--grey-m);
+      border: 1px solid var(--grey-m);
+      margin-top: 3rem;
+    }
+    .inno-card {
+      background: var(--black);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background .3s;
+    }
+    .inno-card:hover { background: var(--grey-d); }
+    .inno-card::before {
+      content: attr(data-num);
+      position: absolute; top: 1.5rem; right: 2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+    }
+    .inno-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .inno-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .inno-card p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--grey-xl);
+    }
+
+    /* ── FEATURE SPLIT ── */
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 70vh;
+      background: var(--grey-d);
+    }
+    .split-image {
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
+    }
+    .split-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.1);
+      transition: transform .8s ease;
+    }
+    .split-section:hover .split-image img { transform: scale(1.04); }
+    .split-image .img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 50%, var(--grey-d) 100%);
+    }
+    .split-text {
+      padding: 5rem 4vw;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .split-text p {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--grey-xl);
+      margin-bottom: 1.5rem;
+    }
+    .split-text p + p { margin-top: 0; }
+
+    /* ── SALUD SECTION ── */
+    #salud { background: var(--black); }
+    .health-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .health-card {
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2.5rem;
+      position: relative;
+      transition: border-color .3s, transform .3s;
+    }
+    .health-card:hover {
+      border-color: var(--grey-l);
+      transform: translateY(-4px);
+    }
+    .health-bar {
+      height: 2px;
+      background: linear-gradient(90deg, var(--grey-m), var(--grey-xl));
+      margin-bottom: 2rem;
+      transform-origin: left;
+      animation: barGrow 1.5s ease forwards;
+    }
+    @keyframes barGrow { from{width:0} to{width:100%} }
+    .health-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .health-card p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--grey-xl);
+    }
+
+    /* ── TIMELINE ── */
+    #historia {
+      background: var(--grey-d);
+    }
+    .timeline {
+      margin-top: 4rem;
+      position: relative;
+      padding-left: 3rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--grey-m), transparent);
+    }
+    .tl-item {
+      position: relative;
+      padding-bottom: 4rem;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -3rem; top: 5px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--grey-l);
+      transform: translateX(-3.5px);
+      border: 1px solid var(--grey-m);
+    }
+    .tl-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--grey-xl);
+      line-height: 1;
+    }
+    .tl-event {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin: 0.5rem 0;
+    }
+    .tl-desc {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--grey-l);
+      max-width: 700px;
+    }
+
+    /* ── IMPACTO AMBIENTAL ── */
+    #impacto { background: var(--black); }
+    .impact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 6rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .impact-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .impact-circle {
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      position: relative;
+    }
+    .impact-circle::before {
+      content: '';
+      position: absolute; inset: -20px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .impact-circle::after {
+      content: '';
+      position: absolute; inset: -40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+    .impact-pct {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4.5rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .impact-pct-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      color: var(--grey-l);
+      text-transform: uppercase;
+    }
+    .impact-list { list-style: none; }
+    .impact-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .impact-list li:last-child { border-bottom: none; }
+    .impact-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--grey-xl);
+      min-width: 80px;
+      line-height: 1;
+    }
+    .impact-txt h4 {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .impact-txt p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--grey-l);
+    }
+
+    /* ── TECH SPECS ── */
+    #tecnologia { background: var(--grey-d); }
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 3rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .tech-table th {
+      text-align: left;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--grey-m);
+      color: var(--grey-l);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+    }
+    .tech-table td {
+      padding: 1.4rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--silver);
+      vertical-align: top;
+    }
+    .tech-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .tech-table td:first-child { color: var(--white); }
+    .badge {
+      display: inline-block;
+      padding: .2rem .6rem;
+      border: 1px solid var(--grey-m);
+      border-radius: 2px;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: var(--grey-xl);
+    }
+    .badge.new { border-color: var(--grey-xl); color: var(--white); }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      background: var(--black);
+      padding: 8rem 5vw;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--white);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    blockquote::before { content: '\201C'; font-size: 5rem; line-height: 0; vertical-align: -0.5em; color: var(--grey-m); margin-right: .5rem; }
+    cite {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--grey-l);
+      margin-top: 2rem;
+      font-style: normal;
+    }
+
+    /* ── FUTURO ── */
+    #futuro { background: var(--black); }
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.06);
+      margin-top: 3rem;
+    }
+    .future-cell {
+      background: var(--black);
+      padding: 3rem 2.5rem;
+      transition: background .3s;
+    }
+    .future-cell:hover { background: var(--grey-d); }
+    .future-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--grey-m);
+      line-height: 1;
+    }
+    .future-cell h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin: 0.8rem 0;
+    }
+    .future-cell p {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--grey-l);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--grey-d);
+      padding: 4rem 5vw 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+    }
+    .footer-brand .nav-logo { font-size: 2.5rem; }
+    .footer-brand p {
+      font-size: 0.9rem;
+      color: var(--grey-l);
+      margin-top: 0.8rem;
+      max-width: 260px;
+      line-height: 1.7;
+    }
+    .footer-links h4 {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--grey-l);
+      margin-bottom: 1.2rem;
+    }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: .7rem; }
+    .footer-links a {
+      font-size: 0.9rem;
+      color: var(--grey-xl);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: var(--grey-m);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .split-section { grid-template-columns: 1fr; }
+      .split-image { min-height: 260px; }
+      .impact-wrap { grid-template-columns: 1fr; }
+      .future-grid { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">EV<span>FUTURE</span></a>
+  <ul>
+    <li><a href="#innovacion">Innovación</a></li>
+    <li><a href="#salud">Salud</a></li>
+    <li><a href="#impacto">Impacto</a></li>
+    <li><a href="#historia">Historia</a></li>
+    <li><a href="#futuro">Futuro</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+
+  <!-- Car SVG silhouette -->
+  <svg class="car-silhouette" viewBox="0 0 900 300" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M120 200 C120 200 200 130 340 110 C420 100 480 95 560 110 C640 125 730 155 780 200 Z"/>
+    <ellipse cx="220" cy="210" rx="55" ry="55"/>
+    <ellipse cx="680" cy="210" rx="55" ry="55"/>
+    <rect x="100" y="195" width="700" height="25" rx="5"/>
+    <path d="M230 140 C260 105 310 95 360 90 L540 90 C590 92 640 110 680 140 Z"/>
+  </svg>
+
+  <p class="hero-eyebrow">El futuro ya llegó</p>
+  <h1 class="hero-title">
+    MOVILIDAD<br>
+    <em>ELÉCTRICA</em>
+  </h1>
+  <p class="hero-subtitle">
+    La revolución silenciosa que está transformando nuestra forma de movernos, respirar y vivir en el planeta.
+  </p>
+  <p class="scroll-hint">↓ DESPLAZA HACIA ABAJO</p>
+</section>
+
+<!-- STATS BAND -->
+<div id="stats">
+  <div class="stat-item">
+    <div class="stat-number">14<span class="stat-unit">M+</span></div>
+    <div class="stat-label">Autos eléctricos vendidos en 2023</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">70<span class="stat-unit">%</span></div>
+    <div class="stat-label">Reducción de emisiones CO₂</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">800<span class="stat-unit">km</span></div>
+    <div class="stat-label">Autonomía récord por carga</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">18<span class="stat-unit">min</span></div>
+    <div class="stat-label">Carga rápida al 80%</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">40<span class="stat-unit">%</span></div>
+    <div class="stat-label">Menos costo en mantenimiento</div>
+  </div>
+</div>
+
+<!-- INNOVACION -->
+<section id="innovacion">
+  <p class="section-label">01 — Innovación</p>
+  <h2 class="section-title">Tecnología que<br>redefine el movimiento</h2>
+  <div class="divider"></div>
+  <div class="inno-grid">
+    <div class="inno-card" data-num="01">
+      <span class="inno-icon">⚡</span>
+      <h3>Baterías de Estado Sólido</h3>
+      <p>La próxima generación de baterías elimina el electrolito líquido y lo sustituye por materiales sólidos. Esto permite densidades energéticas hasta 2.5 veces superiores, cargas ultrarrápidas en menos de 10 minutos, y una vida útil de más de 1 millón de kilómetros sin degradación significativa. Fabricantes como Toyota y QuantumScape lideran esta carrera tecnológica con prototipos ya en pruebas de producción masiva.</p>
+    </div>
+    <div class="inno-card" data-num="02">
+      <span class="inno-icon">🔋</span>
+      <h3>Carga Bidireccional V2G</h3>
+      <p>El concepto Vehicle-to-Grid transforma al automóvil eléctrico en una batería portátil inteligente. Tu vehículo puede almacenar energía solar durante el día y regresarla a la red eléctrica por la noche, generando ingresos para el propietario y estabilizando la red nacional. Nissan Leaf fue pionero; hoy la mayoría de los nuevos modelos EV integran esta capacidad de serie.</p>
+    </div>
+    <div class="inno-card" data-num="03">
+      <span class="inno-icon">🚗</span>
+      <h3>Conducción Autónoma Nivel 4</h3>
+      <p>Los sistemas de conducción autónoma combinan LiDAR de alta resolución, cámaras de 360° y redes neuronales profundas para navegar entornos urbanos complejos sin intervención humana. Waymo ya opera flotas comerciales sin conductor en San Francisco y Phoenix. Tesla Full Self-Driving acumula millones de kilómetros de datos reales que refinan sus algoritmos continuamente.</p>
+    </div>
+    <div class="inno-card" data-num="04">
+      <span class="inno-icon">🔌</span>
+      <h3>Carga Inalámbrica por Inducción</h3>
+      <p>Las plataformas de carga inalámbrica permiten estacionar sobre una almohadilla y cargar sin ningún cable. Bosch y WiTricity han desarrollado sistemas que transfieren energía al 93% de eficiencia a través de distancias de hasta 25 cm. Las autopistas del futuro integrarán carga dinámica mientras el vehículo circula a velocidad de crucero.</p>
+    </div>
+    <div class="inno-card" data-num="05">
+      <span class="inno-icon">🏗️</span>
+      <h3>Plataformas Modulares Skateboard</h3>
+      <p>La arquitectura skateboard unifica motor, batería, suspensión y electrónica en una sola plataforma plana. Esto libera el habitáculo de elementos mecánicos, permite diseños de carrocería intercambiables y reduce radicalmente los costos de desarrollo. General Motors Ultium, Volkswagen MEB y Hyundai E-GMP son las plataformas más avanzadas del mercado.</p>
+    </div>
+    <div class="inno-card" data-num="06">
+      <span class="inno-icon">🌐</span>
+      <h3>Software Over-the-Air (OTA)</h3>
+      <p>A diferencia de los autos convencionales, los vehículos eléctricos se mejoran mediante actualizaciones de software remotas. Tesla lanzó más de 40 actualizaciones en 2023 que mejoraron el rendimiento, agregaron funciones de seguridad y optimizaron la eficiencia energética en vehículos ya vendidos. El automóvil deja de ser un producto terminado para convertirse en un servicio vivo en constante evolución.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT: DISEÑO -->
+<div class="split-section">
+  <div class="split-image">
+    <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80&auto=format" alt="Interior auto eléctrico"/>
+    <div class="img-overlay"></div>
+  </div>
+  <div class="split-text">
+    <p class="section-label">— Diseño e Ingeniería</p>
+    <h2 class="section-title" style="font-size:clamp(2rem,4vw,3.5rem)">Aerodinámica<br>como filosofía</h2>
+    <p>Los autos eléctricos redefinen la aerodinámica. Sin motor de combustión ni sistema de escape, los diseñadores tienen libertad total para optimizar el flujo de aire. El Lucid Air alcanzó un Cx de 0.21, el más bajo jamás registrado en un automóvil de producción masiva.</p>
+    <p>Los frenos regenerativos recuperan hasta el 30% de la energía cinética al desacelerar, convirtiéndola en electricidad. Los motores eléctricos son tan compactos que pueden instalarse directamente en cada rueda, eliminando el diferencial y dotando al vehículo de un control vectorial de par sin precedentes.</p>
+    <p>Los materiales compuestos de carbono, el aluminio de alta resistencia y los bioplásticos derivados de plantas reducen el peso total hasta un 20% frente a sus equivalentes convencionales, mejorando la autonomía sin comprometer la seguridad estructural.</p>
+  </div>
+</div>
+
+<!-- SALUD -->
+<section id="salud">
+  <p class="section-label">02 — Salud & Bienestar</p>
+  <h2 class="section-title">Respirar mejor.<br>Vivir más.</h2>
+  <div class="divider"></div>
+  <p style="font-size:1.15rem; line-height:1.9; color:var(--grey-xl); max-width:780px; margin-bottom:1rem;">
+    La transición hacia la electromovilidad no es únicamente un cambio tecnológico: es una intervención de salud pública a escala global. Los vehículos de combustión interna son responsables del 29% de las emisiones de gases de efecto invernadero en el transporte y representan la principal fuente de contaminación atmosférica en las ciudades.
+  </p>
+  <div class="health-grid">
+    <div class="health-card">
+      <div class="health-bar"></div>
+      <h3>Calidad del Aire Urbano</h3>
+      <p>Los motores de combustión emiten NOₓ, CO, partículas PM2.5 y benceno, todos reconocidos como carcinógenos por la OMS. En ciudades con alta adopción eléctrica como Shenzhen —donde el 100% de los taxis y autobuses ya son eléctricos— los niveles de PM2.5 cayeron un 42% en 5 años. Menos contaminación significa menos casos de asma, EPOC, y enfermedades cardiovasculares.</p>
+    </div>
+    <div class="health-card">
+      <div class="health-bar"></div>
+      <h3>Reducción del Ruido Urbano</h3>
+      <p>Los motores eléctricos operan casi en silencio: menos de 45 dB a velocidades urbanas versus 70–80 dB de un motor diésel. La OMS estima que el ruido crónico del tráfico causa 16,600 muertes prematuras al año en Europa. Ciudades como Oslo y Ámsterdam reportan mejoras significativas en la calidad del sueño de sus habitantes tras flotas eléctricas masivas.</p>
+    </div>
+    <div class="health-card">
+      <div class="health-bar"></div>
+      <h3>Menos Estrés al Conducir</h3>
+      <p>Los sistemas de asistencia avanzada (ADAS) reducen la carga cognitiva del conductor: el mantenimiento de carril, la frenada automática de emergencia y el control de crucero adaptativo disminuyen los niveles de cortisol durante los trayectos. Estudios de la Universidad de Michigan relacionan la conducción eléctrica con hasta un 23% menos de estrés reportado por los usuarios frente a autos convencionales.</p>
+    </div>
+    <div class="health-card">
+      <div class="health-bar"></div>
+      <h3>Calidad del Aire Interior</h3>
+      <p>Sin tubo de escape y con sistemas de filtración HEPA de serie en modelos como Tesla, Rivian y BMW iX, el habitáculo bloquea hasta el 99.97% de partículas contaminantes externas. El modo biodefensa de Tesla crea sobrepresión positiva que impide la entrada de gases tóxicos. Los pasajeros respiran un aire más limpio que el de muchas oficinas convencionales.</p>
+    </div>
+    <div class="health-card">
+      <div class="health-bar"></div>
+      <h3>Movilidad Activa Integrada</h3>
+      <p>El ecosistema EV fomenta la multimodalidad: conectar el auto eléctrico con bicicletas eléctricas, patinetes y transporte público masivo reduce el sedentarismo al hacer más cómodo caminar el "último kilómetro". Las ciudades con mayor penetración EV también muestran mayores índices de uso de transporte activo, correlacionado con mejoras en salud cardiovascular poblacional.</p>
+    </div>
+    <div class="health-card">
+      <div class="health-bar"></div>
+      <h3>Impacto en Salud Mental</h3>
+      <p>La contaminación atmosférica está directamente ligada a tasas más altas de depresión, ansiedad y deterioro cognitivo en poblaciones urbanas. Reducir la exposición crónica a NOₓ y PM2.5 tiene beneficios neurológicos documentados: menor riesgo de Alzheimer, mejor memoria de trabajo y menores tasas de trastornos del neurodesarrollo en niños que crecen en zonas de baja emisión.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <blockquote>
+    El automóvil eléctrico no es el fin de la historia del automóvil. Es el comienzo de algo completamente diferente.
+  </blockquote>
+  <cite>— Elon Musk, CEO Tesla Motors, 2008</cite>
+</div>
+
+<!-- IMPACTO AMBIENTAL -->
+<section id="impacto">
+  <p class="section-label">03 — Medio Ambiente</p>
+  <h2 class="section-title">El balance<br>medioambiental</h2>
+  <div class="impact-wrap">
+    <div class="impact-visual">
+      <div class="impact-circle">
+        <div class="impact-pct">−70%</div>
+        <div class="impact-pct-label" style="margin-top:.5rem;">Emisiones de CO₂<br>en ciclo de vida</div>
+      </div>
+    </div>
+    <ul class="impact-list">
+      <li>
+        <div class="impact-num">3×</div>
+        <div class="impact-txt">
+          <h4>Mayor eficiencia energética</h4>
+          <p>Los motores eléctricos convierten el 90% de la energía en movimiento. Los motores de combustión apenas aprovechan el 30%. Esta eficiencia radical hace viable la transición incluso con matrices eléctricas aún parcialmente fósiles.</p>
+        </div>
+      </li>
+      <li>
+        <div class="impact-num">85%</div>
+        <div class="impact-txt">
+          <h4>Reciclabilidad de las baterías</h4>
+          <p>Las baterías de ión-litio modernas se reciclan al 85% en plantas especializadas. Empresas como Redwood Materials recuperan litio, cobalto, níquel y manganeso con pureza superior al 95%, cerrando el ciclo de vida con mínima pérdida de materiales críticos.</p>
+        </div>
+      </li>
+      <li>
+        <div class="impact-num">0</div>
+        <div class="impact-txt">
+          <h4>Emisiones directas en marcha</h4>
+          <p>Un EV no emite monóxido de carbono, óxidos de nitrógeno, partículas de combustión ni compuestos orgánicos volátiles durante su operación. Cero emisiones directas en cada kilómetro recorrido, transformando la calidad del aire de cada calle que transita.</p>
+        </div>
+      </li>
+      <li>
+        <div class="impact-num">2050</div>
+        <div class="impact-txt">
+          <h4>Meta carbono neutral global</h4>
+          <p>El Acuerdo de París proyecta que la electrificación del transporte terrestre es el mecanismo más eficaz para alcanzar la neutralidad de carbono para 2050. La IEA estima que 300 millones de EVs circulando para esa fecha eliminarían 3 gigatoneladas de CO₂ anualmente.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- HISTORIA / TIMELINE -->
+<section id="historia">
+  <p class="section-label">04 — Historia</p>
+  <h2 class="section-title">La línea del<br>tiempo eléctrica</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">1884</div>
+      <div class="tl-event">Thomas Parker construye el primer auto eléctrico práctico</div>
+      <p class="tl-desc">Usando baterías de alta capacidad que él mismo desarrolló, Parker puso en circulación el primer vehículo eléctrico funcional en Londres. En esa época, los autos eléctricos superaban en ventas a los de gasolina en Estados Unidos y Europa.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1997</div>
+      <div class="tl-event">Toyota lanza el Prius, el primer híbrido de producción masiva</div>
+      <p class="tl-desc">El Toyota Prius democratizó la tecnología de propulsión alternativa. Aunque no era totalmente eléctrico, introdujo al gran público conceptos como la regeneración de energía y el motor combinado, preparando el camino para los EVs modernos.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2008</div>
+      <div class="tl-event">Tesla Roadster — el inicio de la era moderna</div>
+      <p class="tl-desc">El Tesla Roadster demostró que un auto eléctrico podía superar a los deportivos de gasolina más rápidos. Con 394 km de autonomía y 0–100 en 3.7 segundos, destruyó el mito de que los EVs eran lentos y de corto alcance. La industria no volvió a ser la misma.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2012</div>
+      <div class="tl-event">Tesla Model S redefine el automóvil de lujo</div>
+      <p class="tl-desc">Con su pantalla central de 17 pulgadas, actualizaciones OTA y 500+ km de autonomía, el Model S convirtió al auto en un dispositivo tecnológico. Ganó el premio al Automóvil del Año de Motor Trend con la puntuación más alta registrada hasta entonces.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2020</div>
+      <div class="tl-event">Los grandes fabricantes se comprometen con la electrificación total</div>
+      <p class="tl-desc">Volkswagen, GM, Ford, BMW, Mercedes, Volvo y Jaguar anunciaron planes para electrificar todas sus gamas antes de 2030–2035. La UE legisló el fin de la venta de autos de combustión para 2035. El punto de inflexión había llegado: ya no era una tendencia sino una certeza industrial.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div class="tl-event">14 millones de EVs vendidos — récord histórico</div>
+      <p class="tl-desc">Por primera vez, 1 de cada 5 autos nuevos vendidos en el mundo fue eléctrico. China lideró con 8.1 millones de unidades, seguida de Europa y EE.UU. Los precios cayeron un 20% respecto a 2021, acercando la paridad de precio con los vehículos convencionales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECNOLOGIA -->
+<section id="tecnologia">
+  <p class="section-label">05 — Especificaciones</p>
+  <h2 class="section-title">Comparativa técnica<br>de los líderes globales</h2>
+  <table class="tech-table">
+    <thead>
+      <tr>
+        <th>Modelo</th>
+        <th>Autonomía</th>
+        <th>0–100 km/h</th>
+        <th>Carga rápida</th>
+        <th>Arquitectura</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Tesla Model S Plaid</td>
+        <td>637 km</td>
+        <td>2.1 seg</td>
+        <td>250 kW — 15 min (10–80%)</td>
+        <td>800V / Trimotor</td>
+        <td><span class="badge new">EN VENTA</span></td>
+      </tr>
+      <tr>
+        <td>Lucid Air Grand Touring</td>
+        <td>837 km</td>
+        <td>3.0 seg</td>
+        <td>300 kW — 22 min (10–80%)</td>
+        <td>900V / Bimotor</td>
+        <td><span class="badge new">EN VENTA</span></td>
+      </tr>
+      <tr>
+        <td>Mercedes EQS 450+</td>
+        <td>780 km</td>
+        <td>5.3 seg</td>
+        <td>200 kW — 31 min</td>
+        <td>400V / Monomotor</td>
+        <td><span class="badge">EN VENTA</span></td>
+      </tr>
+      <tr>
+        <td>BMW i7 xDrive60</td>
+        <td>625 km</td>
+        <td>4.7 seg</td>
+        <td>195 kW — 34 min</td>
+        <td>400V / Bimotor</td>
+        <td><span class="badge">EN VENTA</span></td>
+      </tr>
+      <tr>
+        <td>Hyundai IONIQ 9</td>
+        <td>620 km</td>
+        <td>5.1 seg</td>
+        <td>350 kW — 14 min</td>
+        <td>800V / Bimotor AWD</td>
+        <td><span class="badge new">2025</span></td>
+      </tr>
+      <tr>
+        <td>Toyota bZ4X Solid-State</td>
+        <td>900 km*</td>
+        <td>4.5 seg*</td>
+        <td>10 min (0–80%)*</td>
+        <td>1000V / Batería sólida</td>
+        <td><span class="badge">2027 EST.</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--grey-m); margin-top:1rem; letter-spacing:1px;">* Datos proyectados según prototipos. Sujeto a verificación oficial en producción.</p>
+</section>
+
+<!-- FUTURO -->
+<section id="futuro">
+  <p class="section-label">06 — El Futuro</p>
+  <h2 class="section-title">Lo que viene<br>después</h2>
+  <div class="divider"></div>
+  <div class="future-grid">
+    <div class="future-cell">
+      <div class="future-year">2025</div>
+      <h3>Paridad de Precio</h3>
+      <p>Los EVs alcanzarán el mismo precio de compra que sus equivalentes de combustión sin subsidios. Las economías de escala en baterías y la madurez de las cadenas de suministro harán posible un auto eléctrico de segmento B por menos de 25,000 USD en mercados occidentales.</p>
+    </div>
+    <div class="future-cell">
+      <div class="future-year">2027</div>
+      <h3>Baterías de Estado Sólido</h3>
+      <p>Toyota y Samsung SDI proyectan la comercialización de baterías de estado sólido con densidades de 500+ Wh/kg. Autonomías de 1,000 km por carga y recargas en menos de 10 minutos se convertirán en estándar de segmento premium.</p>
+    </div>
+    <div class="future-cell">
+      <div class="future-year">2030</div>
+      <h3>Flotas Autónomas Comerciales</h3>
+      <p>Los robotaxis eléctricos de Waymo, Cruise y WeRide operarán en 50 ciudades del mundo. El costo por kilómetro caerá por debajo de 0.10 USD, haciendo el transporte a demanda más barato que poseer un vehículo propio para la mayoría de los usuarios urbanos.</p>
+    </div>
+    <div class="future-cell">
+      <div class="future-year">2032</div>
+      <h3>Autopistas de Carga Dinámica</h3>
+      <p>Suecia ya tiene tramos de autopista con carga por inducción dinámica. Para 2032, los principales corredores de Europa y Corea del Sur permitirán a los EVs recargar mientras circulan, eliminando definitivamente la ansiedad por autonomía en viajes de larga distancia.</p>
+    </div>
+    <div class="future-cell">
+      <div class="future-year">2035</div>
+      <h3>Fin de los Autos de Combustión</h3>
+      <p>La Unión Europea, Reino Unido, Canadá y más de 20 países habrán prohibido la venta de vehículos nuevos de combustión interna. El parque automotor mundial estará en plena transición. Las estaciones de gasolina se transformarán en hubs de energía y descanso para viajeros eléctricos.</p>
+    </div>
+    <div class="future-cell">
+      <div class="future-year">2050</div>
+      <h3>Transporte Carbono Neutro</h3>
+      <p>El sector del transporte terrestre habrá eliminado sus emisiones netas de CO₂. La combinación de vehículos eléctricos, energías renovables y materiales reciclados cerrará el círculo. Las ciudades serán más silenciosas, más limpias y estadísticamente más saludables que en cualquier momento de la historia industrial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">EV<span>FUTURE</span></a>
+      <p>Explorando la revolución de la movilidad eléctrica y su impacto en la salud humana y el medio ambiente.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Secciones</h4>
+      <ul>
+        <li><a href="#innovacion">Innovación Tecnológica</a></li>
+        <li><a href="#salud">Salud & Bienestar</a></li>
+        <li><a href="#impacto">Impacto Ambiental</a></li>
+        <li><a href="#historia">Historia del EV</a></li>
+        <li><a href="#futuro">El Futuro Eléctrico</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Datos y Fuentes</h4>
+      <ul>
+        <li><a href="#">Agencia Internacional de Energía (IEA)</a></li>
+        <li><a href="#">Organización Mundial de la Salud</a></li>
+        <li><a href="#">BloombergNEF EV Outlook 2024</a></li>
+        <li><a href="#">European Automobile Manufacturers Association</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 EVFUTURE — Todos los derechos reservados</p>
+    <p>Diseñado con propósito. Construido para el futuro.</p>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.inno-card, .health-card, .tl-item, .future-cell').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity .6s ease, transform .6s ease';
+    observer.observe(el);
+  });
+
+  // Stagger cards
+  document.querySelectorAll('.inno-grid .inno-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.07}s`;
+  });
+  document.querySelectorAll('.health-grid .health-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.07}s`;
+  });
+</script>
+</body>
+</html>
